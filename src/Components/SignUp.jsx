@@ -1,15 +1,19 @@
 import React, { use } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Contexts/AuthContext";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const { createUser } = use(AuthContext);
   const handleEmailPassAuth = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     createUser(email, password)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        navigate("/");
+      })
       .catch((err) => console.log(err));
   };
   return (
@@ -33,7 +37,12 @@ const SignUp = () => {
             />
             <div>
               <span>Already have an account? Please </span>
-              <Link to="/login" className="link link-hover text-blue-600 underline">Login </Link>
+              <Link
+                to="/login"
+                className="link link-hover text-blue-600 underline"
+              >
+                Login{" "}
+              </Link>
             </div>
             <button className="btn btn-neutral mt-4">Sign Up</button>
           </form>

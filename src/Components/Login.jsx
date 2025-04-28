@@ -1,9 +1,11 @@
 import React, { use, useState } from "react";
 import { AuthContext } from "../Contexts/AuthContext";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const { loginUser, googleLogin } = use(AuthContext);
   const handleEmailPassLogin = (e) => {
@@ -11,12 +13,16 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     loginUser(email, password)
-      .then((res) => console.log(res))
+      .then(() => {
+        navigate(location?.state || "/");
+      })
       .catch((err) => console.log(err));
   };
   const handleGoogleLogin = () => {
     googleLogin()
-      .then((res) => console.log(res))
+      .then(() => {
+        navigate(location?.state || "/");
+      })
       .catch((err) => console.log(err));
   };
   return (
