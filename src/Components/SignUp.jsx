@@ -32,8 +32,8 @@ const SignUp = () => {
               placeholder="Password"
             />
             <div>
-              Already have an account? Please  
-              <Link to="/login" className="link link-hover text-blue-600">  Login </Link>
+              <span>Already have an account? Please </span>
+              <Link to="/login" className="link link-hover text-blue-600 underline">Login </Link>
             </div>
             <button className="btn btn-neutral mt-4">Sign Up</button>
           </form>

@@ -1,8 +1,10 @@
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import { AuthContext } from "../Contexts/AuthContext";
 import { Link } from "react-router";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
+  const [open, setOpen] = useState(false);
   const { loginUser, googleLogin } = use(AuthContext);
   const handleEmailPassLogin = (e) => {
     e.preventDefault();
@@ -21,7 +23,7 @@ const Login = () => {
     <div className="hero h-[calc(100vh-65px)]">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
         <div className="card-body">
-          <form onSubmit={handleEmailPassLogin} className="fieldset">
+          <form onSubmit={handleEmailPassLogin} className="fieldset space-y-2">
             <label className="label">Email</label>
             <input
               type="email"
@@ -29,23 +31,29 @@ const Login = () => {
               className="input focus:outline-none"
               placeholder="Email"
             />
-            <label className="label">Password</label>
-            <input
-              type="password"
-              name="password"
-              className="input focus:outline-none"
-              placeholder="Password"
-            />
+            <label className="label block">Password</label>
+            <div className="input focus-within:ring-0 focus-within:outline-none">
+              <input
+                type={open ? "text" : "password"}
+                className="focus:ring-0 focus:outline-none"
+                name="password"
+                placeholder="Password"
+              />
+              <div className="cursor-pointer" onClick={() => setOpen(!open)}>
+                {open ? <FaEyeSlash /> : <FaEye />}
+              </div>
+            </div>
             <div>
-              Don't have any account? Please
-              <Link to="/signUp" className="link link-hover ml-1 text-blue-600">
-                {" "}
-                Sign Up{" "}
+              <span>Don't have any account? Please </span>
+              <Link
+                to="/signUp"
+                className="link link-hover underline text-blue-600"
+              >
+                Sign Up
               </Link>
             </div>
-            <button className="btn btn-neutral mt-4"> Login</button>
+            <button className="btn btn-neutral mt-4">Login</button>
           </form>
-          {/* Google */}
           <button
             onClick={handleGoogleLogin}
             className="btn bg-white text-black border-[#e5e5e5]"
